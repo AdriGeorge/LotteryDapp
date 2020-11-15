@@ -216,10 +216,41 @@ button {
 }
 
 .info {
+  border: solid 1px;
+  border-color: #222;
+  height: 30%;
 }
 
 .game {
+  border: solid 1px;
+  border-color: red;
+  width: 90%;
+  height: 50%;
+}
+
+.enter {
+  border: solid 1px;
+  border-color: green;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.winner {
+  border: solid 1px;
+  border-color: blue;
+  float: right;
+  width: 50%;
+  height: 100%;
 }
 
 .rules {
+  border: solid 1px;
+  border-color: yellow;
+  height: 20%;
+}
+
+.contract-info {
+  border: solid 1px;
+  border-color: yellow;
 }

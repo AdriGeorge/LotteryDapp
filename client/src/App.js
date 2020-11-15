@@ -84,8 +84,12 @@ class App extends Component {
           />
         </div>
         <div className="game">
-          <Play enter={this.enter} />
-          <Manager pickWinner={this.pickWinner} />
+          <div className="enter">
+            <Play enter={this.enter} />
+          </div>
+          <div className="winner">
+            <Manager pickWinner={this.pickWinner} />
+          </div>
         </div>
         <div className="rules">
           <p>
