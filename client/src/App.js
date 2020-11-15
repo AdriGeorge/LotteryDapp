@@ -40,9 +40,9 @@ class App extends Component {
 
       const manager = await this.state.contract.methods.manager().call();
       const players = await this.state.contract.methods.getPlayers().call();
-      const balance = await web3.eth.getBalance(
-        this.state.contract.options.address
-      );
+      const balance =
+        (await web3.eth.getBalance(this.state.contract.options.address)) /
+        1000000000000000000;
 
       this.setState({ manager, players, balance });
     } catch (error) {
@@ -60,14 +60,40 @@ class App extends Component {
     this.setState({ testContract: result });
   };
 
-  enter = async () => {
-    const { accounts, contract } = this.state;
-    // enter into the game
+  enter = async (e, value) => {
+    e.preventDefault();
+    console.log('you send: ' + value + 'ETH');
+    const { accounts, contract, web3 } = this.state;
+    await contract.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei(value.toString(), 'ether'),
+    });
+    this.setState({
+      players: await this.state.contract.methods.getPlayers().call(),
+      balance:
+        (await web3.eth.getBalance(this.state.contract.options.address)) /
+        1000000000000000000,
+    });
   };
 
-  pickWinner = async () => {
+  pickWinner = async (e) => {
+    e.preventDefault();
     const { accounts, contract } = this.state;
-    // pick the winner -> reset all
+    if (accounts[0] !== this.state.manager) {
+      throw Error('You are not the manager');
+    }
+    console.log('clicked');
+    try {
+      console.log('before');
+      const result = await contract.methods
+        .pickWinner()
+        .send({ from: accounts[0] });
+      console.log('result=> ' + result);
+      console.log('after');
+    } catch (err) {
+      console.log(err);
+    }
+    //console.log(result);
   };
 
   render() {
@@ -78,8 +104,9 @@ class App extends Component {
       <main>
         <div className="info">
           <Information
+            you={this.state.accounts[0]}
             manager={this.state.manager}
-            players={this.state.players}
+            players={this.state.players.length}
             balance={this.state.balance}
           />
         </div>

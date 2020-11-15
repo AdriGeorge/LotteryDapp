@@ -1,17 +1,12 @@
 import React from 'react';
 
-const Information = ({ manager, players, balance }) => {
+const Information = ({ you, manager, players, balance }) => {
   return (
     <div className="contract-info">
-      <img src="owner.png" alt="Owner"></img>
-      owner: {manager}, total winBalance: {balance}
-      {players.map((player, index) => {
-        return (
-          <div className="player" key={index}>
-            {player}
-          </div>
-        );
-      })}
+      <h4>You are connected as: {you}</h4>
+      <h4>Owner of the game: {manager}</h4>
+      <h3>total prize: {balance} eth</h3>
+      <h4>players in game: {players}</h4>
     </div>
   );
 };

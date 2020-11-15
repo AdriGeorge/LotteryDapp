@@ -94,7 +94,7 @@ h4 {
 }
 p {
   margin-bottom: 1.25rem;
-  color: var(--clr-grey-5);
+  color: var(--clr-black);
 }
 @media screen and (min-width: 800px) {
   h1 {
@@ -216,41 +216,28 @@ button {
 }
 
 .info {
-  border: solid 1px;
-  border-color: #222;
-  height: 30%;
+  height: 40%;
 }
 
 .game {
-  border: solid 1px;
-  border-color: red;
   width: 90%;
   height: 50%;
 }
 
 .enter {
-  border: solid 1px;
-  border-color: green;
   float: left;
   width: 50%;
   height: 100%;
+  text-align: center;
 }
 
 .winner {
-  border: solid 1px;
-  border-color: blue;
   float: right;
   width: 50%;
   height: 100%;
+  text-align: center;
 }
 
 .rules {
-  border: solid 1px;
-  border-color: yellow;
   height: 20%;
-}
-
-.contract-info {
-  border: solid 1px;
-  border-color: yellow;
 }

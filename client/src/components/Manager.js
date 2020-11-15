@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Manager = ({ pickWinner }) => {
-  return <h2>Manager</h2>;
+  return (
+    <form onSubmit={(e) => pickWinner(e)}>
+      <button className="btn">Get winner</button>
+    </form>
+  );
 };
 
 export default Manager;

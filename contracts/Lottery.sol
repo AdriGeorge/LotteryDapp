@@ -6,11 +6,13 @@ contract Lottery{
     address payable[] public players;
     
     modifier restricter(){
-        require(msg.sender == manager);
+        require(msg.sender == manager, "You are not the owner");
         _;
     }
+
+    event Control(string message, uint index);
     
-    constructor() public {
+    constructor() public{
         manager = msg.sender;
     }
     
@@ -30,6 +32,8 @@ contract Lottery{
     // select a random player and reset all
     function pickWinner() public restricter {
         uint256 index = random() % players.length;
+
+        emit Control("Sono qua", index);
         
         // give to the winner all the money with tranfer(this.balance)
         players[index].transfer(address(this).balance);
