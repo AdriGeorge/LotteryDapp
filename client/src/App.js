@@ -16,6 +16,7 @@ class App extends Component {
     contract: null,
     manager: null,
     players: [],
+    lastWinner: '',
     balance: 0,
   };
   componentDidMount = async () => {
@@ -68,32 +69,37 @@ class App extends Component {
       from: accounts[0],
       value: web3.utils.toWei(value.toString(), 'ether'),
     });
+    this.updateState();
+  };
+
+  pickWinner = async (e) => {
+    e.preventDefault();
+    const { accounts, contract, web3 } = this.state;
+    if (accounts[0] !== this.state.manager) {
+      throw Error('You are not the manager');
+    }
+    try {
+      var winner = await contract.methods
+        .pickWinner()
+        .send({ from: accounts[0] });
+      winner = winner.events.lastWinner.returnValues.winner;
+      this.setState({ lastWinner: winner });
+      //this.setState({ lastWinner: winner });
+    } catch (err) {
+      console.log(err);
+    }
+    this.updateState();
+  };
+
+  updateState = async () => {
+    console.log('update!!');
+    const { accounts, contract, web3 } = this.state;
     this.setState({
       players: await this.state.contract.methods.getPlayers().call(),
       balance:
         (await web3.eth.getBalance(this.state.contract.options.address)) /
         1000000000000000000,
     });
-  };
-
-  pickWinner = async (e) => {
-    e.preventDefault();
-    const { accounts, contract } = this.state;
-    if (accounts[0] !== this.state.manager) {
-      throw Error('You are not the manager');
-    }
-    console.log('clicked');
-    try {
-      console.log('before');
-      const result = await contract.methods
-        .pickWinner()
-        .send({ from: accounts[0] });
-      console.log('result=> ' + result);
-      console.log('after');
-    } catch (err) {
-      console.log(err);
-    }
-    //console.log(result);
   };
 
   render() {
@@ -106,6 +112,7 @@ class App extends Component {
           <Information
             you={this.state.accounts[0]}
             manager={this.state.manager}
+            lastWinner={this.state.lastWinner}
             players={this.state.players.length}
             balance={this.state.balance}
           />

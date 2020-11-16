@@ -3,7 +3,10 @@ import React from 'react';
 const Manager = ({ pickWinner }) => {
   return (
     <form onSubmit={(e) => pickWinner(e)}>
-      <button className="btn">Get winner</button>
+      <h4>Click to get the winner!</h4>
+      <button className="btn-winner">
+        <span>EndGame</span>
+      </button>
     </form>
   );
 };

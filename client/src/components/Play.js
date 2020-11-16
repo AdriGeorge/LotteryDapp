@@ -14,7 +14,10 @@ const Play = ({ enter }) => {
         value={entryPrice}
         onChange={(e) => setEntryPrice(e.target.value)}
       ></input>
-      <button className="btn">Play</button>
+      <br />
+      <button className="btn-winner">
+        <span>Play</span>
+      </button>
     </form>
   );
 };
